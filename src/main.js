@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import { sync } from 'vuex-router-sync'
-// import store from '@/store/store'
+import store from '@/store/store'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -17,7 +17,7 @@ Vue.use(Vuetify, {
 })
 
 /* eslint-disable no-new */
-sync(router)
+sync(store, router)
 
 new Vue({
   el: '#app',
@@ -26,3 +26,5 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+// App.mount('#app')

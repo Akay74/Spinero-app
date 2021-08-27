@@ -30,9 +30,9 @@ export default new Router({
       component: loadView(`Women`)
     },
     {
-      path: '/Latest_collections',
-      name: 'LatestCollections',
-      component: loadView(`LatestCollections`)
+      path: '/latest_collections',
+      name: 'Latest_collections',
+      component: loadView(`Latest_collections`)
     }
   ]
 })
