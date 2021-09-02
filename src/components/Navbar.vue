@@ -20,60 +20,65 @@
         <router-link to="/"><img src='..\assets\profile.svg'></router-link>
       </div>
 
-      <nav class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link to="/men">Men</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/women">Women</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/latest_collections">Latest Collection</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/">Home</router-link>
-          </li>
-        </ul>
+      <nav class="desktop-nav">
+        <router-link to="/men">Men</router-link>
+        <router-link to="/women">Women</router-link>
+        <router-link to="/latest_collections">Latest Collection</router-link>
+        <router-link to="/">Home</router-link>
       </nav>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="hamburger">
+        <div class="bar"></div>
       </button>
     </header>
+    <nav class="mobile-nav">
+      <router-link to="/men">Men</router-link>
+      <router-link to="/women">Women</router-link>
+      <router-link to="/latest_collections">Latest Collection </router-link>
+      <router-link to="/">Home</router-link>
+    </nav>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      currentNumber: 0,
-      timer: null
-    }
-  },
-  methods: {
-    loadNav () {
-      let modalBtn = document.getElementById('modal-btn')
-      let modal = document.querySelector('.modal')
-      let closeBtn = document.querySelector('.close-btn')
-      modalBtn.onclick = function () {
-        modal.style.display = 'block'
+  export default {
+    data () {
+      return {
+        currentNumber: 0,
+        timer: null
       }
-      closeBtn.onclick = function () {
-        modal.style.display = 'none'
-      }
-      window.onclick = function (e) {
-        if (e.target === modal) {
-          modal.style.display = 'one'
+    },
+    methods: {
+      loadNav () {
+        let modalBtn = document.getElementById('modal-btn')
+        let modal = document.querySelector('.modal')
+        let closeBtn = document.querySelector('.close-btn')
+        modalBtn.onclick = function () {
+          modal.style.display = 'block'
         }
-      }
-    }
-  },
-  mounted () {
-    this.loadNav()
+        closeBtn.onclick = function () {
+          modal.style.display = 'none'
+        }
+        window.onclick = function (e) {
+          if (e.target === modal) {
+            modal.style.display = 'one'
+          }
+        }
+      },
+      toggleHamburger () {
+        let menu_btn = document.querySelector('.hamburger');
+        let mobile_menu = document.querySelector('.mobile-nav');
+        menu_btn.addEventListener('click', function(){
+        menu_btn.classList.toggle('is-active');
+        mobile_menu.classList.toggle('is-active');
+      })
+    },
+
+    mounted() {
+        this.loadNav(),
+        this.toggleHamburger(),
+    },
   }
-}
 </script>
 
 <style scoped>
@@ -97,15 +102,79 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-  nav a {
+  .desktop-nav{
+    display: none;
+  }
+  nav router-link {
     font-weight: 900;
     color: #4F4F4F;
     text-decoration: none;
   }
-  nav a.router-link-exact-active {
+  nav router-link.router-link-exact-active {
     font-weight: bolder;
     color: #000;
     border-bottom: 2px solid #000
+  }
+  .hamburger{
+    position: relative;
+    display: block;
+    width: 35px;
+    cursor: pointer;
+    appearance: none;
+    background: none;
+    outline: none;
+    border: none;
+  }
+  .hamburger .bar, .hamburger:after, .hamburger:before{
+    display: block;
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: #4F4F4F;
+    margin: 6px 0px;
+    transition: 0.4s
+  }
+  .hamburger.is-active:before{
+    transform: rotate(-45deg) translate(-7px, 5px)
+  }
+  .hamburger.is-active .bar{
+    opacity: 0;
+  }
+  .hamburger.hamburger.is-active:after{
+    transform: rotate(45deg) translate(-7px, -7px)
+  }
+
+  .mobile-nav{
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 98;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(90,190,90,1) 100%);
+    margin-top: 60px;
+    transition: 0.4s;
+  }
+
+  .mobile-nav a{
+    font-size: 18px;
+    font-weight: bolder;
+    display: block;
+    text-align: center;
+    margin: 0 auto 16px;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #248d24;
+    border-radius: 4px;
+  }
+
+  .mobile-nav a:hover{
+    background-color: #62bd62;
   }
   .modal {
     display: none;
@@ -125,6 +194,6 @@ export default {
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
   }
 </style>
