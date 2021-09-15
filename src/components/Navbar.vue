@@ -75,8 +75,8 @@
     },
 
     mounted() {
-        this.loadNav(),
-        this.toggleHamburger(),
+        this.loadNav();
+        this.toggleHamburger();
     },
   }
 </script>
